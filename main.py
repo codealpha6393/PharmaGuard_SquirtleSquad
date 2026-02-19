@@ -6,18 +6,25 @@ from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from dotenv import load_dotenv
+from pydantic import BaseModel
 import google.generativeai as genai
 
 # ==========================================
 # 0. LOAD ENVIRONMENT
 # ==========================================
-load_dotenv()
+# ==========================================
+# 0. LOAD ENVIRONMENT
+# ==========================================
+# load_dotenv() # Not needed in Vercel production
 
 # ==========================================
 # 1. API CONFIG & AI SAFETY GUARD
 # ==========================================
 app = FastAPI(title="PharmaGuard PGx API")
+
+@app.get("/")
+async def root():
+    return {"status": "PharmaGuard API is running successfully!"}
 
 app.add_middleware(
     CORSMiddleware,
